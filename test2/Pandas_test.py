@@ -15,9 +15,9 @@ mnames = ['movie_id','title','genres']
 
 movies = pd.read_table('movielens/movies.dat',sep = '::',header = None,
                       names = mnames,engine='python')
-print users[:5]
-print ratings[:5]
-print movies[:5]
+##print users[:5]
+##print ratings[:5]
+##print movies[:5]
 
 data = pd.merge(pd.merge(ratings,users),movies)
 
@@ -25,3 +25,8 @@ data = pd.merge(pd.merge(ratings,users),movies)
 mean_ratings = pd.pivot_table(data,'rating',index = 'title',columns
                                 ='gender',aggfunc='mean')
 ##print mean_ratings[:5]
+rating_by_title = pd.groupby(data,'title').size()
+#print rating_by_title[:5]
+
+active_titles =  rating_by_title.index[rating_by_title>=250]
+print active_titles[:5]

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os, sys,string,re,glob
 
-Rule1 = "(\/\*(\s|.)*?\*\/)|(\/\/.*)"
+Rule1 = "(\/\*([\s\S])*?\*\/)"
 c1=re.compile(Rule1)
 def usage():
     print(u'''
@@ -21,9 +21,9 @@ def deal_file(src):
         return False
     try:
          if not os.access(src, os.W_OK):
-             os.chmod(src, 0664)
+             os.chmod(src,stat.S_IWRITE)
     except:
-           print('Error: you can not chang %s\n's mode.'% src)
+           print('Error: you can not change %s\'s mode.\n'% src)
 
     inputf = open(src, 'r')
     outputfilename= (os.path.splitext(src))[0] + '_no_comment'+filetype
@@ -31,7 +31,9 @@ def deal_file(src):
 
     lines=inputf.read()
     inputf.close()
-    lines=re.sub(Rule1,"",lines)
+    comment = re.findall(Rule1,lines)
+    print(comment)
+
     outputf.write(lines)
     outputf.close()
     return True
@@ -63,7 +65,7 @@ def main():
         fl = os.path.abspath(src)
         dirFlag = False
     else:
-        print('File input error'\n)
+        print('File input error\n')
 
     if dirFlag:
             deal_dir(dire)
@@ -72,5 +74,6 @@ def main():
             print('Successful handle file.\n')
 
 #--------------------------------------------------------------
+
 if __name__ == '__main__':
-    main()
+    deal_file(sys.argv[1])

@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 str1=u'''/*
  *Copyright (c) Huawei Technologies Co.,Ltd.2012-2019,All rights reserved
- *Description:文件功能描述
- *Author:王二 w00474677
- *Create:2019-12-22
+ *Description:{}
+ *Author:{}
+ *Create:{}
 */ 
 '''
 str2=u'''/*
-*Description:
-*Author:
-*Date:
+*Description:{}
+*Author:{}
+*Date:{}
 */
 '''
-print(str1)
-print(str2)
+str3 = "wangyong"
+str4 = "11"
+str5 = "22"
+
+str6 = str2.format(str3,str4,str5)
+print(str6)

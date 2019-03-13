@@ -1,7 +1,20 @@
 # -*- coding: utf-8 -*-
 import os, sys,string,re,glob
+str1=u'''/*
+ *Copyright (c) Huawei Technologies Co.,Ltd.2012-2019,All rights reserved
+ *Description:{}
+ *Author:{}
+ *Create:{}
+*/ 
+'''
+str2=u'''/*
+*Description:{}
+*Author:{}
+*Date:{}
+*/
+'''
 
-Rule1 = "(\/\*([\s\S])*?\*\/)"
+Rule1 = '\/\*[\s\S]*?\*\/'
 c1=re.compile(Rule1)
 def usage():
     print(u'''
@@ -33,7 +46,13 @@ def deal_file(src):
     inputf.close()
     comment = re.findall(Rule1,lines)
     print(comment)
-
+    for s in comment:
+        match1 = re.search(r'Author\s*?:(.*?)\n',s)
+        match2 = re.search(r'Mail\s*?:(.*?)\n',s)
+        match3 = re.search(r'Created\s*?Time\s*?:(.*?)\n', s)
+        if match1 and match2 and match3:
+            str3 = str2.format(match1.group(1),match2.group(1),match3.group(1))
+        lines = re.sub(Rule1,str3, lines)
     outputf.write(lines)
     outputf.close()
     return True

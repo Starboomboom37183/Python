@@ -8,7 +8,7 @@ input.close()
 count = 0
 end = 0
 place = 0
-#output = open("Dijkstra.c","w")
+output = open("Dijkstra.c","w")
 while True:
     match = c0.search(lines,place)
     if not match:
@@ -30,18 +30,19 @@ while True:
                 if len(temp) > 1:
                     print(temp)
                     pos = lines.rfind("\n", 0, start)
-                    print(lines[1492])
                     for k in range(start + 1, end):
                         if lines[k] != " ":
                             break
-                    length = k - pos - 1
+                    tab_num = len(re.findall("\t", lines[pos:k]))
+                    length = k - pos - 1+3*tab_num
                     line_replace = ""
-                    for i in range(1, len(temp)):
+                    temp[0] = temp[0][1:]
+                    for i in range(0, len(temp)):
                         temp[i] = " " * length + temp[i].lstrip()
                     for s in temp:
                         line_replace = line_replace + s + "\n"
-                    lines = lines[:start] + line_replace.rstrip() + lines[end:]
-                    i = start + len(line_replace) + 1
+                    lines = lines[:start+1]+"\n"+ line_replace.rstrip() + lines[end:]
+                    i = start+1 + len(line_replace) + 1
                     print(lines[pos:i])
                     break
 
@@ -50,6 +51,6 @@ while True:
     place = i
 
 
-#output.write(lines)
-#output.close()
+output.write(lines)
+output.close()
 

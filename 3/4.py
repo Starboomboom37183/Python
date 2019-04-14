@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 input = open("Dijkstra.c","r")
 lines = input.read()
 input.close()
@@ -24,7 +25,8 @@ while i<len(lines):
                 for k in range(start + 1, end):
                     if lines[k] != " ":
                         break
-                length = k - pos - 1
+                tab_num = len(re.findall("\t", lines[pos:k]))
+                length = k - pos - 1 + 3 * tab_num
                 line_replace = ""
                 for i in range(1,len(temp)):
                     temp[i]=" "*length+temp[i].lstrip()

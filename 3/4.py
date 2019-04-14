@@ -6,7 +6,7 @@ count = 0
 start = 0
 end = 0
 i = 0
-#output = open("Dijkstra.c","w")
+output = open("Dijkstra.c","w")
 while i<len(lines):
     if lines[i]=="(":
         if count ==0:
@@ -18,14 +18,11 @@ while i<len(lines):
         count-=1
         if count==0:
             end = i+1
-            print(lines[start:end])
             temp = lines[start:end].splitlines()
             pos= lines.rfind("\n",0,start)
             length = start - pos
-            print(temp)
-            if len(temp) == 1:
-                continue
-            else:
+            if len(temp)>1:
+                print(temp)
                 line_replace = ""
                 for i in range(1,len(temp)):
                     temp[i]=" "*length+temp[i].lstrip()
@@ -35,6 +32,6 @@ while i<len(lines):
                 i = start + len(line_replace)+1
 
     i+=1
-#output.write(lines)
-#output.close()
+output.write(lines)
+output.close()
 

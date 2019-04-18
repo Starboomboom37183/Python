@@ -7,8 +7,23 @@ count = 0
 start = 0
 end = 0
 i = 0
+def skip_this(lines,i):
+    i +=1
+    while i < len(lines):
+        if lines[i]=="\"":
+            if lines[i-1]!="\\\\":
+                return i
+        i+=1
+
+
+
 output = open("Dijkstra.c","w")
 while i<len(lines):
+    if lines[i] == "\"":
+        t1 = i
+        i = skip_this(lines,i)
+        i+=1
+        continue
     if lines[i]=="(":
         if count ==0:
             start = end = i

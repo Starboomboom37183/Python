@@ -2,8 +2,6 @@
 #include<stdlib.h>
 #include<limits.h>
 #include<string.h>
-
-
 //Structure for storing a graph
 struct Graph{
 	int vertexNum;
@@ -23,13 +21,18 @@ void createGraph(struct Graph* G,int V){
 }
 
 //Adds the given edge to the graph 
-void addEdge(struct Graph* G, int src, int dst, int weight){
+void addEdge ( struct Graph* G,
+               int src, 
+               int dst,
+               int weight){
 	G->edges[src][dst] = weight;
 }
 
-
+print("this is my first(")
 //Utility function to find minimum distance vertex in mdist
-int minDistance(int mdist[], int vset[], int V){
+int minDistance(int mdist[], 
+                int vset[], 
+                int V){
 	int minVal = INT_MAX, minInd ;
 	for(int i=0; i<V;i++)
 		if(vset[i] == 0 && mdist[i] < minVal){
@@ -54,7 +57,8 @@ void print(int dist[], int V){
 //The main function that finds the shortest path from given source
 //to all other vertices using Dijkstra's Algorithm.It doesn't work on negative
 //weights
-void Dijkstra(struct Graph* graph, int src){
+void Dijkstra(struct Graph* graph, 
+              int src){
 	int V = graph->vertexNum;
 	int mdist[V];   //Stores updated distances to vertex
 	int vset[V];    // vset[i] is true if the vertex i included
@@ -77,19 +81,8 @@ void Dijkstra(struct Graph* graph, int src){
 				
 		}
 	}
-	Graph a ={ 0, NULL};
-	Graph b = {
-                0,
-                NULL,
-                c}
-	
-};
-	print(mdist, V);
 
-		Graph b = {
-                    0,
-                    NULL,
-                    0}
+	print(mdist, V);
 	
 	return;
 }
@@ -114,10 +107,6 @@ int main(){
 		printf("Enter weight: ");
 		scanf("%d",&weight);
 		addEdge(&G, src, dst, weight);
-		Graph b = {
-                    0,
-                    NULL,
-                    c}
 	}
 	printf("\nEnter source:");
 	scanf("%d",&gsrc);

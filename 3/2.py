@@ -1,28 +1,30 @@
 # !/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-from tkinter import *
-root = Tk()
-# Thinker总共提供了三种布局组件的方法：pack(),grid()和place()
-# grid()方法允许你用表格的形式来管理组件的位置
-# row选项代表行，column选项代表列
-# 例如row=1，column=2表示第二行第三列(0表示第一行)
-Label(root, text="作品:").grid(row=0)
-Label(root, text="作者:").grid(row=1)
-e1 = Entry(root)
-e2 = Entry(root)
-e1.grid(row=0, column=1, padx=10, pady=5)
-e2.grid(row=1, column=1, padx=10, pady=5)
+import PySimpleGUI as sg
 
-def show():
-    print("作品:<< % s>>" % e1.get())
-    print("作者:<< % s>>" % e2.get())
-    e1.delete(0, END)
-    e2.delete(0, END)
+"""      
+Demonstrates using a "tight" layout with a Dark theme.      
+Shows how button states can be controlled by a user application.  The program manages the disabled/enabled      
+states for buttons and changes the text color to show greyed-out (disabled) buttons      
+"""
 
-# 如果表格大于组件，那么可以使用sticky选项来设置组件的位置
-# 同样你需要使用N，E，S,W以及他们的组合NE，SE，SW，NW来表示方位
-Button(root, text="获取信息", width=10, command=show).grid(row=3, column=0, sticky=W, padx=10, pady=5)
-Button(root, text="退出", width=10, command=root.quit()).grid(row=3, column=1, sticky=E, padx=10, pady=5)
+layout = [
+    [sg.Canvas(size=(100, 100), background_color='red', key='canvas')],
+    [sg.T('Change circle color to:'), sg.Button('Red'), sg.Button('Blue')]
+]
 
-mainloop()
+window = sg.Window('Canvas test', layout)
+window.Finalize()
+
+canvas = window.Element('canvas')
+cir = canvas.TKCanvas.create_oval(50, 50, 100, 100)
+
+while True:
+    event, values = window.Read()
+    if event is None:
+        break
+    if event == 'Blue':
+        canvas.TKCanvas.itemconfig(cir, fill="Blue")
+    elif event == 'Red':
+        canvas.TKCanvas.itemconfig(cir, fill="Red")
